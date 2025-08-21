@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'app.user',
-    'app.post'
+    'app.user',  
+    'app.post.apps.PostConfig', # Configuración explícita
 ]
 
 REST_FRAMEWORK = {

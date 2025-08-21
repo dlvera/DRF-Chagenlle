@@ -1,5 +1,5 @@
 from django.db import models
-from app.user.models import SoftDeleteMixin, SoftDeleteManager 
+from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager 
 
 class Tag(SoftDeleteMixin, models.Model):
     name = models.CharField(max_length=50, unique=True)
