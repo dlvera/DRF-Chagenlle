@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager  
+from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager
+from app.post.models.TimeStampedMixin import TimeStampedMixin  
 
-class CustomUser(AbstractUser, SoftDeleteMixin):
+class CustomUser(AbstractUser, SoftDeleteMixin, TimeStampedMixin):  # Agregar TimeStampedMixin
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=True)
 
@@ -29,8 +30,7 @@ class CustomUser(AbstractUser, SoftDeleteMixin):
     
     def __str__(self):
         return self.username
-
-class Profile(SoftDeleteMixin, models.Model):
+class Profile(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)

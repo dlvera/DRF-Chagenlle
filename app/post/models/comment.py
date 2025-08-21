@@ -1,15 +1,14 @@
 from django.db import models
-from django.conf import settings  # Importar settings para usar AUTH_USER_MODEL
+from django.conf import settings
 from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager 
+from app.post.models.TimeStampedMixin import TimeStampedMixin  # Importar el nuevo mixin
 
-class Comment(SoftDeleteMixin, models.Model):
+class Comment(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     post = models.ForeignKey('app_post.Post', on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
-    # Usar el manager personalizado
+    # Eliminar los campos created_at y updated_at ya que vienen del mixin
     objects = SoftDeleteManager()
     
     def __str__(self):

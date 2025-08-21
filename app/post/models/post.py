@@ -1,15 +1,15 @@
 from django.db import models
 from django.conf import settings
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager 
+from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager
+from app.post.models.TimeStampedMixin import TimeStampedMixin 
 
-class Post(SoftDeleteMixin, models.Model):
+class Post(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True, through='PostTags')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
+    # Eliminar los campos created_at y updated_at ya que vienen del mixin
     objects = SoftDeleteManager()
     
     def __str__(self):

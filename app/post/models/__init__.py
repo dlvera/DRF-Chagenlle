@@ -1,8 +1,7 @@
-from .comment import Comment
 from .post import Post, PostTags
-from .tag import Tag 
+from .tag import Tag
+from .comment import Comment
 from .SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager
+from .TimeStampedMixin import TimeStampedMixin  
 
-
-# Esto hace que Django los detecte
-__all__ = ['Comment', 'Post', 'Tag','SoftDeleteMixin', 'SoftDeleteManager', 'PostTags']
+__all__ = ['Post', 'Tag', 'Comment', 'PostTags', 'SoftDeleteMixin', 'SoftDeleteManager', 'TimeStampedMixin']
