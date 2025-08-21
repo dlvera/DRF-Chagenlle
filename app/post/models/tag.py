@@ -1,6 +1,5 @@
 from django.db import models
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager 
-from app.post.models.TimeStampedMixin import TimeStampedMixin  # Importar el nuevo mixin
+from app.common.models import SoftDeleteManager, SoftDeleteMixin, TimeStampedMixin
 
 class Tag(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     name = models.CharField(max_length=50, unique=True)

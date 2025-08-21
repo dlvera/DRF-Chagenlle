@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager
-from app.post.models.TimeStampedMixin import TimeStampedMixin 
+from app.common.models import SoftDeleteManager, SoftDeleteMixin, TimeStampedMixin
+
 
 class Post(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     title = models.CharField(max_length=200)

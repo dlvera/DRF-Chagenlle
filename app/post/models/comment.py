@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager 
-from app.post.models.TimeStampedMixin import TimeStampedMixin  # Importar el nuevo mixin
+from app.common.models import SoftDeleteManager, SoftDeleteMixin, TimeStampedMixin
 
 class Comment(SoftDeleteMixin, TimeStampedMixin, models.Model):  # Agregar TimeStampedMixin
     post = models.ForeignKey('app_post.Post', on_delete=models.CASCADE, related_name='comments')

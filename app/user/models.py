@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from app.post.models.SoftDeleteMixin import SoftDeleteMixin, SoftDeleteManager
-from app.post.models.TimeStampedMixin import TimeStampedMixin  
+from app.common.models import SoftDeleteManager, SoftDeleteMixin, TimeStampedMixin
 
 class CustomUser(AbstractUser, SoftDeleteMixin, TimeStampedMixin):  # Agregar TimeStampedMixin
     email = models.EmailField(unique=True)
