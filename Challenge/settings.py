@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'app.user',  
     'app.post.apps.PostConfig', # Configuración explícita
     'app.common',
+    'oauth2_provider',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
@@ -51,11 +54,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # Solo usuarios autenticados
         # 'rest_framework.permissions.IsAdminUser',  # Solo administradores
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',  # Lectura para todos, escritura solo para autenticados
+        
     ],
     # AUTENTICACIÓN: Dos métodos para verificar identidad
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication', # Usa cookies de sesión (ideal cuando el frontend y backend están integrados)
         'rest_framework.authentication.TokenAuthentication', # Usa tokens (ideal para APIs consumidas por apps móviles o frontends separados)
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ],
     # PAGINACIÓN: Divide resultados largos en páginas
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -151,3 +157,18 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.CustomUser'
+
+
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+}
